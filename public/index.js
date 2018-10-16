@@ -1,31 +1,36 @@
-function requestChatBot(loc) {
+function requestChatBot(info, loc) {
     const params = BotChat.queryParams(location.search);
     const oReq = new XMLHttpRequest();
     oReq.addEventListener("load", initBotConversation);
     var path = "/chatBot";
-    path += ((params["userName"]) ? "?userName=" + params["userName"] : "?userName=you");
+    var userName = (info && info.userName) || params["userName"] || "You";
+    path += "?userName=" + userName;
+    var userId = (info && info.userId) || params["userId"];
+    if (userId) {
+        path += "&userId=" + userId;        
+    }
+    if (info && info.agent) {
+        path += "&agent=true";
+    }
     if (loc) {
         path += "&lat=" + loc.lat + "&long=" + loc.long;
-    }
-    if (params['userId']) {
-        path += "&userId=" + params['userId'];
     }
     oReq.open("GET", path);
     oReq.send();
 }
 
-function chatRequested() {
+function chatRequested(info) {
     const params = BotChat.queryParams(location.search);
     var shareLocation = params["shareLocation"];
     if (shareLocation) {
-        getUserLocation(requestChatBot);
+        getUserLocation(info, requestChatBot);
     }
     else {
-        requestChatBot();
+        requestChatBot(info);
     }
 }
 
-function getUserLocation(callback) {
+function getUserLocation(info, callback) {
     navigator.geolocation.getCurrentPosition(
         function(position) {
             var latitude  = position.coords.latitude;
@@ -34,17 +39,17 @@ function getUserLocation(callback) {
                 lat: latitude,
                 long: longitude
             }
-            callback(location);
+            callback(info, location);
         },
         function(error) {
             // user declined to share location
             console.log("location error:" + error.message);
-            callback();
+            callback(info);
         });
 }
 
 function sendUserLocation(botConnection, user) {
-    getUserLocation(function (location) {
+    getUserLocation(null, function (info, location) {
         botConnection.postActivity({type: "message", text: JSON.stringify(location), from: user}).subscribe(function (id) {console.log("success")});
     });
 }
