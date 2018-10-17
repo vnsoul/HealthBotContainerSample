@@ -6,20 +6,53 @@
     <title>Health Bot</title>
     <link href="https://hatenantstorageprod.blob.core.windows.net/public-websites/webchat/botchat.css?v=5" rel="stylesheet" />
     <link href="stylesheets/style.css?v=5" rel="stylesheet" />
+    <link href="stylesheets/agent.css?v=5" rel="stylesheet" />   
     <script src="https://hatenantstorageprod.blob.core.windows.net/public-websites/webchat/botchat.js?v=5"></script>
     <!--script src="index.js?v=5"></script-->
+
+    
 </head>
 
 <body>
-    <div id="BotChatGoesHere"></div>
-    <div id="botContainer" style="width:100%"></div>
+    <h1> Agent Webchat</h1>
+    <h2 id="logon-title"> Login page </h2>
+
+    
+
     <form id="logon-form">
-        <label for "user-name">Enter your name (as it would appear in the chat)</label>
+        <label for "user-name">Enter your name (as it should appear in the chat)</label>
+        <br>
         <input id="user-name" type="text">
+        <br><br>
+
         <label for="user-id">Enter login ID here</label>
+        <br>
         <input id="user-id" type="text">
+        <br><br>
         <button id="submit-btn" type="submit">Log In</button>
     </form>
+
+    <table id="webchat-container" class="invisible">
+        <tr>
+            <td width="150px" valign="top">
+                <div class="agent-buttons hidden">
+                    <button type="button" onclick="talk('list')"> List </button>
+                    <button type="button" onclick="talk('connect')"> Connect </button>
+                    <button type="button" onclick="talk('disconnect')"> End conversation </button>
+                    <button type="button" onclick="talk('options')"> Options </button>
+                </div>            
+            </td>
+            <td width="100%">
+                <div id="BotChatGoesHere"></div>
+                <div id="botContainer" style="width:100%"></div>                            
+            </td>
+        </tr>
+    </table>
+    <!-- webchat -->
+    <!-- agent buttons -->
+
+
+
 
     <!--script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
