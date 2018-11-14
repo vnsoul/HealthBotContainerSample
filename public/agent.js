@@ -25,10 +25,15 @@ logon_form.onsubmit = e => {
 }
 
 function talk(message) {
-        input = document.querySelector('.wc-shellinput');
-        input.value = message;
-        event = new Event('change', { bubbles: true });
-        event.simulated = true;
-        input.dispatchEvent(event);
-        document.querySelector(".wc-send").click();
+    var input = document.getElementsByClassName("wc-shellinput")[0];
+    var lastValue = input.value;
+    input.value = message;
+    var event = new CustomEvent('input', { bubbles: true });
+    event.simulated = true;
+    var tracker = input._valueTracker;
+    if (tracker) {
+        tracker.setValue(lastValue);
     }
+    input.dispatchEvent(event);
+    document.querySelector(".wc-send").click();
+}
