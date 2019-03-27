@@ -58,6 +58,7 @@ app.get('/chatBot',  function(req, res) {
             if (isAgentAuthenticated(req)) {
                 response['isAgent'] = true;
             }
+            response['directLineURI'] = process.env.DIRECTLINE_ENDPOINT_URI;
             const jwtToken = jwt.sign(response, process.env.APP_SECRET);
             res.send(jwtToken);
         })
