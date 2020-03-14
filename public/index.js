@@ -94,7 +94,18 @@ function initBotConversation() {
         name: "TriggerScenario"
     }).subscribe(function(id) {});
     */
-
+    botConnection.postActivity({
+    type: "event", 
+    value: {
+        trigger: "covid19",
+        args: {
+            myVar1: "custom_arg_1",
+            myVar2: "custom_arg_2"
+            }
+        },
+    from: "user",
+    name: "BeginDebugScenario"
+    }).subscribe(function (id){ });
     botConnection.activity$
         .filter(function (activity) {return activity.type === "event" && activity.name === "shareLocation"})
         .subscribe(function (activity) {sendUserLocation(botConnection, user)});
