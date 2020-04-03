@@ -89,7 +89,7 @@ function initBotConversation() {
                 myVar2: "{custom_arg_2}"
             }
         },
-        locale: "vi-vn",
+        locale: "en-us",
         from: user,
         name: "TriggerScenario"
     }).subscribe(function(id) {});
