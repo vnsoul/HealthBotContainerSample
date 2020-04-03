@@ -89,7 +89,7 @@ function initBotConversation() {
                 myVar2: "{custom_arg_2}"
             }
         },
-        locale: "en-us",
+        locale: "vi-vn",
         from: user,
         name: "TriggerScenario"
     }).subscribe(function(id) {});
@@ -119,7 +119,7 @@ function startChat(user, botConnection) {
     BotChat.App({
         botConnection: botConnection,
         user: user,
-        locale: 'en-us',
+        locale: 'vi-vn',
         resize: 'detect'
         // sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
     }, botContainer);
